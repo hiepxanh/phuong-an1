@@ -7,16 +7,9 @@ import { StaffService } from './services/staff.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  constructor(private staffService: StaffService) {
-  }
-  staffs = [
-    { id: 1, name: 'Nguyen A', checkIn: false, turn: 0, timecheckIn: 0, prioritize: 0 },
-    { id: 2, name: 'Nguyen B', checkIn: false, turn: 0, timecheckIn: 0, prioritize: 0 },
-    { id: 3, name: 'Nguyen C', checkIn: false, turn: 0, timecheckIn: 0, prioritize: 0 }
-  ];
+  staffs = this.staffService.staffs;
+  constructor(private staffService: StaffService) {}
   customers = [];
-  staffCheckIn = [];
   idCustomer = 0;
   idStaff = 3;
   isAddCus: boolean;
@@ -25,69 +18,61 @@ export class AppComponent {
   isStaffChose: boolean;
 
   checkInNhanVien(id) {
-    for (const nhanVien of this.staffs) {
-      if (nhanVien.id === id) {
-        if (nhanVien.checkIn === false) {
-          nhanVien.checkIn = true;
-          nhanVien.timecheckIn = this.staffService.genTimeStamp();
-          this.staffCheckIn.push(nhanVien);
-        } else {
-          nhanVien.checkIn = false;
-          nhanVien.timecheckIn = 0;
-          nhanVien.prioritize = 0;
-          this.staffCheckIn = this.staffCheckIn.filter(nv => nv.id !== id);
-        }
-      }
+    const staff = this.staffs[id];
+    if (staff.checkIn === false) {
+      staff.checkIn = true;
+      staff.timecheckIn = Date.now();
+    } else {
+      staff.checkIn = false;
+      staff.timecheckIn = 0;
+      staff.prioritize = 0;
     }
     this.updatePriority();
-    if (this.staffCheckIn.length > 0) {
-      this.isStaffChose = true;
-      this.staffChose = this.staffCheckIn[0];
-    } else {
-      this.isStaffChose = false;
-    }
+
   }
 
   changeTurn(id, type) {
-    if (this.staffCheckIn.length > 0) {
       this.isAddCus = false;
       this.isStaffChose = true;
       this.idCustomer += 1;
-      for (const nhanVien of this.staffs) {
-        if (nhanVien.id === id && nhanVien.checkIn) {
-          if (type === 'add') {
-            this.customers.push({ id: this.idCustomer, name: 'Khach Hang ' + this.idCustomer, staff: nhanVien.name });
-            nhanVien.turn += 1;
-          } else if (type === 'delete') {
-            nhanVien.turn = nhanVien.turn === 0 ? 0 : nhanVien.turn - 1;
-          }
+      const staff = this.staffs[id];
+      let newStaff;
+      if (staff.checkIn) {
+        if (type === 'add') {
+          this.customers.push({ id: this.idCustomer, name: 'Khach Hang ' + this.idCustomer, staff: staff.name });
+          newStaff = { ...staff, turn: staff.turn + 1 };
+        } else if (type === 'delete') {
+          newStaff = { ...staff, turn: staff.turn === 0 ? 0 : staff.turn - 1 };
         }
+        this.staffs[id] = newStaff;
       }
       this.updatePriority();
-    } else {
-      this.isAddCus = true;
-    }
+
   }
 
   updatePriority() {
-    const { turnMin, turnMax } = this.staffService.caculateTurnMinMax(this.staffCheckIn);
-    this.addPrioritize(turnMin, turnMax, this.staffCheckIn);
+    const staffCheckin = (this.staffs as object).filter('id', entity => entity.timecheckIn > 0);
+    this.addPrioritize(staffCheckin);
   }
 
   themNhanVien() {
     this.idStaff += 1;
-    this.staffs.push({ id: this.idStaff, name: 'Nhan Vien' + this.idStaff, checkIn: false, turn: 0, timecheckIn: 0, prioritize: 0 });
+    this.staffs[this.idStaff] = {
+      id: this.idStaff,
+      name: 'Nhan Vien' + this.idStaff,
+      checkIn: false,
+      turn: 0,
+      timecheckIn: 0,
+      prioritize: 0
+  }
   }
 
-  private addPrioritize(turnMin, turnMax, staffCheckIn) {
-    const nvs = this.staffService.caculatePrioritize(turnMin, turnMax, staffCheckIn);
-    if (nvs.length > 0) {
-      for (const nv of nvs) {
-        for (let nhanvien of this.staffs) {
-          if (nhanvien.id === nv.id) { nhanvien = Object.assign(nhanvien, nv); }
-          if (nhanvien.id === nvs[0].id) { this.staffChose = nhanvien; }
-        }
-      }
+  private addPrioritize(staffCheckIn) {
+    const checkinStaffNewUpdate = this.staffService.caculatePrioritize(Object.values(staffCheckIn));
+    for (const staff of checkinStaffNewUpdate) {
+      this.staffs[staff.id] = staff;
     }
+    this.staffChose = checkinStaffNewUpdate[0];
+
   }
 }

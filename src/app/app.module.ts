@@ -33,6 +33,7 @@ declare global {
   }
   interface Object {
     sortValueAsArray(order?: 'asc' | 'desc', keyName?: string): object;
+    filter(idKey: string, filterFunction: any): object;
   }
 
   interface String {
@@ -53,6 +54,18 @@ String.prototype.purePhone = String.prototype.purePhone || function () {
 Number.prototype.purePhone = Number.prototype.purePhone || function () {
   return this.toString().replace(/\s/g, '').replace(/\(/g, '').replace(/\)/g, '');
 };
+
+Object.defineProperty(Object.prototype, 'filter', {
+  enumerable: false,
+  value(idKey: string, filterFunction) {
+    const result = {};
+    const filtered = Object.values(this).filter(filterFunction);
+    for (const item of filtered) {
+      result[(item as any)[idKey]] = item;
+    }
+    return result;
+  }
+});
 
 
 Object.defineProperty(Object.prototype, 'sortValueAsArray', {

@@ -13,20 +13,22 @@
     <div class="col-sm-1"></div>
     <div class="col-sm-3">Time Check In</div>
   </div>
-  <div *ngFor="let nhanVien of staffs" class="row">
-    <div class="col-sm-1">{{nhanVien.prioritize == 0 ? '-' : nhanVien.prioritize}}</div>
-    <div class="col-sm-3">{{nhanVien.name}}</div>
-    <div class="col-sm-2" (click) = "checkInNhanVien(nhanVien.id)">{{nhanVien.checkIn}}</div>
-    <div class="col-sm-2">{{nhanVien.turn}}</div>
-    <div class="col-sm-1">
-      <div class="row">
-        <div class="col"><button type="button" class="btn btn-link" (click) = "changeTurn(nhanVien.id,'add')">+</button></div>
-        <div class="col"><button type="button" class="btn btn-link" (click) = "changeTurn(nhanVien.id, 'delete')">-</button></div>
+  <div *ngFor="let staff of staffs | keyvalue" class="row">
+   <ng-container *ngIf="staff.value as nhanVien">
+      <div class="col-sm-1">{{nhanVien.timecheckIn === 0 ? '-' : nhanVien.prioritize}}</div>
+      <div class="col-sm-3">{{nhanVien.name}}</div>
+      <div class="col-sm-2" (click)="checkInNhanVien(nhanVien.id)">{{nhanVien.checkIn}}</div>
+      <div class="col-sm-2">{{nhanVien.turn}}</div>
+      <div class="col-sm-1">
+        <div class="row">
+          <button type="button" class="btn btn-link" (click)="changeTurn(nhanVien.id,'add')">Add +</button>
+          <button type="button" class="btn btn-link" (click)="changeTurn(nhanVien.id, 'delete')">Delete -</button>
+        </div>
       </div>
-    </div>
-    <div class="col-sm-3">{{nhanVien.timecheckIn !== 0 ? (nhanVien.timecheckIn | date: 'medium') : 0}}</div>
+      <div class="col-sm-3">{{nhanVien.timecheckIn !== 0 ? (nhanVien.timecheckIn | date: 'medium') : 0}}</div>
+   </ng-container>
   </div>
-  <h5 *ngIf="isStaffChose">Gợi ý của chúng tôi là: {{staffChose.name}}</h5>
+  <h5 *ngIf="staffChose">Gợi ý của chúng tôi là: {{staffChose.name}}</h5>
   <div class="row" style="margin-top: 100px">
     <div class="col-sm-10"><h3 >Danh sách khách hàng</h3></div>
     <div class="col-sm-2">
