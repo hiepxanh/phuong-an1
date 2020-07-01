@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "phuong-an-vong-tron"
+    }
+  },
+  "defaultProject": "phuong-an-vong-tron",
+  "cli": {
+    "analytics": false
+  }
 }
