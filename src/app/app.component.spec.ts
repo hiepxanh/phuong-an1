@@ -26,10 +26,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('phuong-an-vong-tron');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('phuong-an-vong-tron app is running!');
-  });
 });

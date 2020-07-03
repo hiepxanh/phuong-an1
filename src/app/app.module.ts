@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { StaffService } from './services/staff.service';
 
 @NgModule({
   declarations: [
@@ -11,7 +10,6 @@ import { StaffService } from './services/staff.service';
   imports: [
     BrowserModule
   ],
-  providers: [StaffService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
@@ -33,7 +31,7 @@ declare global {
   }
   interface Object {
     sortValueAsArray(order?: 'asc' | 'desc', keyName?: string): object;
-    filter(idKey: string, filterFunction: any): object;
+    filterProperty(idKey: string, filterFunction: any): object;
   }
 
   interface String {
@@ -55,7 +53,7 @@ Number.prototype.purePhone = Number.prototype.purePhone || function () {
   return this.toString().replace(/\s/g, '').replace(/\(/g, '').replace(/\)/g, '');
 };
 
-Object.defineProperty(Object.prototype, 'filter', {
+Object.defineProperty(Object.prototype, 'filterProperty', {
   enumerable: false,
   value(idKey: string, filterFunction) {
     const result = {};
