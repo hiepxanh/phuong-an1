@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CircleTurnService } from './circle-turn.service';
 import { AppModule } from '../app.module';
+import { k1, k2, deleteK2, checkinAll } from './circle-turn.customer';
 
 describe('CircleTurnService', () => {
   let service: CircleTurnService;
@@ -11,11 +12,8 @@ describe('CircleTurnService', () => {
       imports: [AppModule]
     });
     service = new CircleTurnService();
-    const servicestaffs = service.staffs;
-    service.checkinStaff(servicestaffs[1].id);
-    service.checkinStaff(servicestaffs[2].id);
-    service.checkinStaff(servicestaffs[3].id);
-    staffs = service.caculatePrioritize(service.staffArrays);
+    staffs = service.staffs;
+    staffs = checkinAll(staffs, service);
   });
 
   it('should be created', () => {
@@ -30,10 +28,9 @@ describe('CircleTurnService', () => {
   });
 
   it('add turn 1 to staff 1', () => {
-    const staffs = service.staffs;
-    service.updateTurn(staffs[1].id, 'add');
+    staffs = service.updateTurn(staffs[1].id, 'add');
     // console.log('staffs', staffs, service.staffs[1].turn === 1);
-    expect(service.staffs[1].turn).toBe(1);
+    expect(staffs[1].turn).toBe(1);
   });
 
   it('K0', () => {
@@ -45,13 +42,29 @@ describe('CircleTurnService', () => {
 
   it('K1', () => {
     // console.log(staffs);
-    staffs = service.updateTurn(staffs[1].id, 'add');
-    staffs = service.caculatePrioritize(staffs);
+    staffs = k1(staffs, service);
     expect(staffs[1].prioritize).toBe(3);
     expect(staffs[2].prioritize).toBe(1);
     expect(staffs[3].prioritize).toBe(2);
   });
 
+  it('K2', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
 
+    expect(staffs[1].prioritize).toBe(2);
+    expect(staffs[2].prioritize).toBe(3);
+    expect(staffs[3].prioritize).toBe(1);
+  });
 
+  it('KDelete', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = deleteK2(staffs, service);
+    expect(staffs[1].prioritize).toBe(3);
+    expect(staffs[2].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(2);
+  });
 });
