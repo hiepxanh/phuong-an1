@@ -13,25 +13,31 @@ export class CircleTurnService {
   customers = [];
   idCustomer = 0;
 
+  get staffArrays() {
+    return Object.values(this.staffs ?? {})
+  }
+
   constructor() { }
 
   caculatePrioritize(staffs: any[]) {
     const objectByTurn = staffs.groupBy('turn');
-    const objectByTurnSorted = objectByTurn.sortValueAsArray('asc', 'timecheckIn');
+    const objectByTurnSorted = objectByTurn.sortValueAsArray('desc', 'timecheckIn');
     const turns = Object.keys(objectByTurnSorted);
     const flatStaff1 = turns.sortByKey('asc');
     const flatStaff2 = flatStaff1.map(key => objectByTurnSorted[key]);
     const flatStaff3 = flatStaff2.flat();
     const flatStaff4 = flatStaff3.map((staff, i) => ({ ...staff, prioritize: i + 1}));
-    return flatStaff4
+    const flatArrayToObject = flatStaff4.arrayToObject('id');
+    return flatArrayToObject
   }
 
   addPrioritize(staffCheckIn) {
-    const checkinStaffNewUpdate = this.caculatePrioritize(Object.values(staffCheckIn));
-    for (const staff of checkinStaffNewUpdate) {
+    const flatArrayToObject = this.caculatePrioritize(Object.values(staffCheckIn));
+    const values = Object.values(flatArrayToObject ?? {})
+    for (const staff of values) {
       this.staffs[staff.id] = staff;
     }
-    this.staffChose = checkinStaffNewUpdate[0];
+    this.staffChose = values[0];
   }
 
   updatePriority() {

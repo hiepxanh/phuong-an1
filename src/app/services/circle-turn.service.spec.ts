@@ -5,15 +5,17 @@ import { AppModule } from '../app.module';
 
 describe('CircleTurnService', () => {
   let service: CircleTurnService;
+  let staffs;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [AppModule]
     });
     service = new CircleTurnService();
-    const staffs = service.staffs;
-    service.checkinStaff(staffs[1].id);
-    service.checkinStaff(staffs[2].id);
-    service.checkinStaff(staffs[3].id);
+    const servicestaffs = service.staffs;
+    service.checkinStaff(servicestaffs[1].id);
+    service.checkinStaff(servicestaffs[2].id);
+    service.checkinStaff(servicestaffs[3].id);
+    staffs = service.caculatePrioritize(service.staffArrays);
   });
 
   it('should be created', () => {
@@ -27,16 +29,28 @@ describe('CircleTurnService', () => {
     expect(service.staffs[3].checkIn).toBeTrue();
   });
 
-  it('staff prioritize should order correctly', () => {
-    expect(service.staffs[1].prioritize).toBe(1);
-    expect(service.staffs[2].prioritize).toBe(2);
-    expect(service.staffs[3].prioritize).toBe(3);
-  });
-
   it('add turn 1 to staff 1', () => {
     const staffs = service.staffs;
     service.updateTurn(staffs[1].id, 'add');
-    console.log('staffs', staffs, service.staffs[1].turn === 1);
+    // console.log('staffs', staffs, service.staffs[1].turn === 1);
     expect(service.staffs[1].turn).toBe(1);
   });
+
+  it('K0', () => {
+    // console.log(staffs);
+    expect(staffs[1].prioritize).toBe(1);
+    expect(staffs[2].prioritize).toBe(2);
+    expect(staffs[3].prioritize).toBe(3);
+  });
+
+  it('K1', () => {
+    // console.log(staffs);
+    service.updateTurn(staffs[1].id, 'add');
+    expect(staffs[1].prioritize).toBe(3);
+    expect(staffs[2].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(2);
+  });
+
+  
+
 });
