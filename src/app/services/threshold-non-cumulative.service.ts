@@ -32,7 +32,7 @@ export class ThresholdNonCumulativeService extends CircleTurnService {
       staff.turn = totalTurns.length;
       staff.turnServices = newTurnServices;
     }
-    this.update(id, staff);
+    return this.update(id, staff);
   }
 
   calculateTurnIncrease(staff, type, service) {

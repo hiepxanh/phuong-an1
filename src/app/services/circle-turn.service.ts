@@ -19,11 +19,11 @@ export class CircleTurnService {
 
   constructor() { }
 
-  caculatePrioritize(staffs: any[]) {
-    const objectByTurn = staffs.groupBy('turn');
+  caculatePrioritize(staffs: any) {
+    const objectByTurn = Object.values(staffs ?? {}).groupBy('turn');
     const objectByTurnSorted = objectByTurn.sortValueAsArray('desc', 'timecheckIn');
     const turns = Object.keys(objectByTurnSorted);
-    const flatStaff1 = turns.sortByKey('asc');
+    const flatStaff1 = turns.sortByKey('desc', 'timecheckIn');
     const flatStaff2 = flatStaff1.map(key => objectByTurnSorted[key]);
     const flatStaff3 = flatStaff2.flat();
     const flatStaff4 = flatStaff3.map((staff, i) => ({ ...staff, prioritize: i + 1}));
@@ -80,7 +80,7 @@ export class CircleTurnService {
         staff = { ...staff, turn: staff.turn === 0 ? 0 : staff.turn - 1 };
       }
     }
-    this.update(id, staff);
+    return this.update(id, staff);
   }
 
   updateHistory(id, type) {

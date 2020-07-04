@@ -40,8 +40,17 @@ export class AppComponent implements OnInit {
     this.updateView();
   }
 
+  isNoOneCheckin() {
+    const result = this.staffs.compareValueByFn(value => !!value.timecheckIn);
+    return Object.values(result ?? {}).filter(item => item === true).length === 0;
+  }
+
   changeTurn(id, type) {
     this.isAddCus = false;
+    const nooneCheckin = this.isNoOneCheckin();
+    if (nooneCheckin) {
+      return alert('Vui lòng checkin ít nhất 1 staff');
+    }
     switch (this.methodMode) {
       case 'circle':
         this.method.updateTurn(id, type);

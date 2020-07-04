@@ -45,13 +45,13 @@ describe('CircleTurnService', () => {
 
   it('K1', () => {
     // console.log(staffs);
-    service.updateTurn(staffs[1].id, 'add');
-    staffs = service.staffs;
+    staffs = service.updateTurn(staffs[1].id, 'add');
+    staffs = service.caculatePrioritize(staffs);
     expect(staffs[1].prioritize).toBe(3);
     expect(staffs[2].prioritize).toBe(1);
     expect(staffs[3].prioritize).toBe(2);
   });
 
-  
+
 
 });
