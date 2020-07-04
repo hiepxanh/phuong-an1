@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'phuong-an-vong-tron'`, () => {
+  it(`Title length should greater than 0`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('phuong-an-vong-tron');
+    expect(app.title.length).toBeGreaterThan(0);
   });
 
 });

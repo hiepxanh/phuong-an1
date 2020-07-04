@@ -1,6 +1,15 @@
+<div>
+  <h1> {{ title }} {{ methodMode}} </h1>
+  <h3> {{ methodMode === 'threshold-non-cumulative' ? 'Hạn mức mỗi turn là: ' + threshold : '' }} </h3>
+  <button (click)="changeMethod('circle')">Đổi phương án 1</button>
+  <button (click)="changeMethod('threshold-non-cumulative')">Đổi phương án 2</button>
+</div>
+
 <div class="container">
   <div class="row" style="margin-top: 40px;">
-    <div class="col-sm-10"><h3>Danh sách nhân viên</h3></div>
+    <div class="col-sm-10">
+      <h3>Danh sách nhân viên</h3>
+    </div>
     <div class="col-sm-2">
       <button (click)="themNhanVien()">Add</button>
     </div>
@@ -14,7 +23,7 @@
     <div class="col-sm-3">Time Check In</div>
   </div>
   <div *ngFor="let staff of staffs | keyvalue" class="row">
-   <ng-container *ngIf="staff.value as nhanVien">
+    <ng-container *ngIf="staff.value as nhanVien">
       <div class="col-sm-1">{{nhanVien.timecheckIn === 0 ? '-' : nhanVien.prioritize}}</div>
       <div class="col-sm-3">{{nhanVien.name}}</div>
       <div class="col-sm-2" (click)="checkInNhanVien(nhanVien.id)">{{nhanVien.checkIn}}</div>
@@ -26,11 +35,13 @@
         </div>
       </div>
       <div class="col-sm-3">{{nhanVien.timecheckIn !== 0 ? (nhanVien.timecheckIn | date: 'medium') : 0}}</div>
-   </ng-container>
+    </ng-container>
   </div>
   <h5 *ngIf="staffChose">Gợi ý của chúng tôi là: {{staffChose.name}}</h5>
   <div class="row" style="margin-top: 100px">
-    <div class="col-sm-10"><h3 >Danh sách khách hàng</h3></div>
+    <div class="col-sm-10">
+      <h3>Danh sách khách hàng</h3>
+    </div>
     <div class="col-sm-2">
       <!-- <button (click)="themKhachHang()">Add</button>
       <button (click)="goiy()">Xem gợi ý</button> -->
@@ -39,6 +50,10 @@
   <div class="row">
     <div class="col-sm">Name</div>
     <div class="col-sm">Staff</div>
+  </div>
+
+  <div>
+    <pre> {{ staffs | json }} </pre>
   </div>
   <div *ngFor="let khachHang of customers" class="row">
     <div class="col-sm">{{khachHang.name}}</div>

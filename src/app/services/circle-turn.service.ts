@@ -15,7 +15,7 @@ export class CircleTurnService {
 
   constructor() { }
 
-  private caculatePrioritize(staffs: any[]) {
+  caculatePrioritize(staffs: any[]) {
     const objectByTurn = staffs.groupBy('turn');
     const objectByTurnSorted = objectByTurn.sortValueAsArray('asc', 'timecheckIn');
     const turns = Object.keys(objectByTurnSorted);
@@ -65,7 +65,7 @@ export class CircleTurnService {
     this.update(id, staff);
   }
 
-  updateTurn(id, type: 'add' | 'delete') {
+  updateTurn(id, type: 'add' | 'delete', service?: any) {
     let staff = this.getEntity(id);
     if (staff.checkIn) {
       if (type === 'add') {
