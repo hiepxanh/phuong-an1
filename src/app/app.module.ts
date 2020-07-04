@@ -14,7 +14,9 @@ import { AppComponent } from './app.component';
 })
 export class AppModule { }
 
-
+export function isObject(value) {
+  return value && typeof value === 'object' && value.constructor === Object;
+}
 
 declare global {
   interface Array<T> {
@@ -32,6 +34,9 @@ declare global {
   interface Object {
     sortValueAsArray(order?: 'asc' | 'desc', keyName?: string): object;
     filterProperty(idKey: string, filterFunction: any): object;
+    mergeObject(defaultData: any): object;
+    reduceValueAsArrayByKey(idKey: string): object;
+    compareValueByFn(compareFunction: any): object;
   }
 
   interface String {
@@ -53,6 +58,41 @@ Number.prototype.purePhone = Number.prototype.purePhone || function () {
   return this.toString().replace(/\s/g, '').replace(/\(/g, '').replace(/\)/g, '');
 };
 
+Object.defineProperty(Object.prototype, 'mergeObject', {
+  enumerable: false,
+  value(defaultData: any) {
+    const result = {};
+    for (const [key, value] of Object.entries(defaultData)) {
+      result[key] = isObject(value)
+        ? this.mergeObject(this[key], defaultData[key])
+        : this[key] ?? defaultData[key];
+    }
+    return result;
+  }
+});
+
+Object.defineProperty(Object.prototype, 'compareValueByFn', {
+  enumerable: false,
+  value(compareFunction) {
+    const result = {};
+    for (const [key, value] of Object.entries(this)) {
+      result[key] = compareFunction(value);
+    }
+    return result;
+  }
+});
+
+Object.defineProperty(Object.prototype, 'reduceValueAsArrayByKey', {
+  enumerable: false,
+  value(idKey: string) {
+    const result = {};
+    for (const [key, list] of Object.entries(this)) {
+      result[key] = (list as any[]).reduce((total, item) => total + (item[idKey] ?? 0), 0);
+    }
+    return result;
+  }
+});
+
 Object.defineProperty(Object.prototype, 'filterProperty', {
   enumerable: false,
   value(idKey: string, filterFunction) {
@@ -64,7 +104,6 @@ Object.defineProperty(Object.prototype, 'filterProperty', {
     return result;
   }
 });
-
 
 Object.defineProperty(Object.prototype, 'sortValueAsArray', {
   enumerable: false,

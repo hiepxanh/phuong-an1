@@ -30,6 +30,7 @@ describe('CircleTurnService', () => {
   it('add turn 1 to staff 1', () => {
     const staffs = service.staffs;
     service.updateTurn(staffs[1].id, 'add');
+    console.log('staffs', staffs, service.staffs[1].turn === 1);
     expect(service.staffs[1].turn).toBe(1);
   });
 });
