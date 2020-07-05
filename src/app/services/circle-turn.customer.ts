@@ -18,6 +18,51 @@ export function k2(staffs, service: CircleTurnService) {
   staffs = service.caculatePrioritize(staffs);
   return staffs
 }
+export function k3(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[3].id, 'add');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+export function k4(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[1].id, 'add');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+export function deleteKA(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[1].id, 'delete');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+export function deleteKB(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[2].id, 'delete');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+export function deleteKC(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[3].id, 'delete');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+export function k5(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[2].id, 'add');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+export function k6(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[2].id, 'add');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+export function k7(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[2].id, 'add');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+export function k8(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[1].id, 'add');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
 
 export function deleteK2(staffs, service: CircleTurnService) {
   staffs = service.updateTurn(staffs[2].id, 'delete');

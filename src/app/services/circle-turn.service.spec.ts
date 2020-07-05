@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CircleTurnService } from './circle-turn.service';
 import { AppModule } from '../app.module';
-import { k1, k2, deleteK2, checkinAll } from './circle-turn.customer';
+import { k1, k2, k3, k4, deleteKA, deleteKB, deleteKC, k5, k6, k7, k8, deleteK2, checkinAll } from './circle-turn.customer';
 
 describe('CircleTurnService', () => {
   let service: CircleTurnService;
@@ -47,7 +47,7 @@ describe('CircleTurnService', () => {
     expect(staffs[2].prioritize).toBe(1);
     expect(staffs[3].prioritize).toBe(2);
   });
-
+  
   it('K2', () => {
     // console.log(staffs);
     staffs = k1(staffs, service);
@@ -56,6 +56,193 @@ describe('CircleTurnService', () => {
     expect(staffs[1].prioritize).toBe(2);
     expect(staffs[2].prioritize).toBe(3);
     expect(staffs[3].prioritize).toBe(1);
+  });
+
+  it('K3', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+
+    expect(staffs[1].prioritize).toBe(1);
+    expect(staffs[2].prioritize).toBe(2);
+    expect(staffs[3].prioritize).toBe(3);
+  });
+
+  it('K4', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k4(staffs, service);
+
+    expect(staffs[1].prioritize).toBe(3);
+    expect(staffs[2].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(2);
+  });
+
+  it('DeleteTurnA', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k4(staffs, service);
+    staffs = deleteKA(staffs, service);
+    expect(staffs[1].prioritize).toBe(1);
+    expect(staffs[2].prioritize).toBe(2);
+    expect(staffs[3].prioritize).toBe(3);
+  });
+
+  it('DeleteTurnB', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k4(staffs, service);
+    staffs = deleteKA(staffs, service);
+    staffs = deleteKB(staffs, service);
+    expect(staffs[1].prioritize).toBe(2);
+    expect(staffs[2].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(3);
+  });
+
+  it('K5', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k4(staffs, service);
+    staffs = deleteKA(staffs, service);
+    staffs = deleteKB(staffs, service);
+    staffs = k5(staffs, service);
+
+    expect(staffs[1].prioritize).toBe(1);
+    expect(staffs[2].prioritize).toBe(2);
+    expect(staffs[3].prioritize).toBe(3);
+  });
+
+  // Gia su moi nguoi co 5 turn  (1)
+  it('DeleteTurnBx2', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = deleteKB(staffs, service);
+    staffs = deleteKB(staffs, service);
+    expect(staffs[1].prioritize).toBe(2);
+    expect(staffs[2].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(3);
+  });
+
+  it('DeleteTurnC', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = deleteKB(staffs, service);
+    staffs = deleteKB(staffs, service);
+    staffs = deleteKC(staffs, service);
+    expect(staffs[1].prioritize).toBe(3);
+    expect(staffs[2].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(2);
+  });
+
+  it('K6', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = deleteKB(staffs, service);
+    staffs = deleteKB(staffs, service);
+    staffs = deleteKC(staffs, service);
+    staffs = k6(staffs, service);
+    expect(staffs[1].prioritize).toBe(3);
+    expect(staffs[2].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(2);
+  });
+
+    // Gia su moi nguoi co 5 turn  (2)
+  it('K7', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k7(staffs, service);
+    expect(staffs[1].prioritize).toBe(1);
+    expect(staffs[2].prioritize).toBe(3);
+    expect(staffs[3].prioritize).toBe(2);
+  });
+
+  // Gia su moi nguoi co 5 turn  (3)
+  it('K8', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k8(staffs, service);
+    expect(staffs[1].prioritize).toBe(3);
+    expect(staffs[2].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(2);
   });
 
   it('KDelete', () => {
