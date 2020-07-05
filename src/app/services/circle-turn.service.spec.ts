@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CircleTurnService } from './circle-turn.service';
 import { AppModule } from '../app.module';
-import { k1, k2, k3, k4, deleteKA, deleteKB, deleteKC, k5, k6, k7, k8, deleteK2, checkinAll } from './circle-turn.customer';
+import { k1, k2, k3, k4, deleteKA, deleteKB, deleteKC, k5, k6, k7, k8, k9, deleteK2, checkinAll, ClockOutStaffB } from './circle-turn.customer';
 
 describe('CircleTurnService', () => {
   let service: CircleTurnService;
@@ -47,7 +47,7 @@ describe('CircleTurnService', () => {
     expect(staffs[2].prioritize).toBe(1);
     expect(staffs[3].prioritize).toBe(2);
   });
-  
+
   it('K2', () => {
     // console.log(staffs);
     staffs = k1(staffs, service);
@@ -243,7 +243,82 @@ describe('CircleTurnService', () => {
     expect(staffs[1].prioritize).toBe(3);
     expect(staffs[2].prioritize).toBe(1);
     expect(staffs[3].prioritize).toBe(2);
+  }); 
+
+  it('ClockOutStaffB', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = ClockOutStaffB(staffs[2].id, service);
+    staffs = k8(staffs, service);
+
+    expect(staffs[1].prioritize).toBe(2);
+    expect(staffs[3].prioritize).toBe(1);
+  }); 
+  it('K9', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = ClockOutStaffB(staffs[2].id, service);
+    staffs = k8(staffs, service);
+    staffs = k9(staffs, service);
+
+    expect(staffs[1].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(2);
   });
+
+  it('BClockIn', () => {
+    // console.log(staffs);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k1(staffs, service);
+    staffs = k2(staffs, service);
+    staffs = k3(staffs, service);
+    staffs = k8(staffs, service);
+    staffs = k9(staffs, service);
+
+    expect(staffs[1].prioritize).toBe(2);
+    expect(staffs[2].prioritize).toBe(1);
+    expect(staffs[3].prioritize).toBe(3);
+  });
+
+
 
   it('KDelete', () => {
     // console.log(staffs);

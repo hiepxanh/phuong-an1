@@ -63,6 +63,17 @@ export function k8(staffs, service: CircleTurnService) {
   staffs = service.caculatePrioritize(staffs);
   return staffs
 }
+export function k9(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[3].id, 'add');
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+
+export function ClockOutStaffB(staffId, service: CircleTurnService) {
+  service.checkinStaff(staffId);
+   return service.caculatePrioritize(service.staffArrays);
+ }
+
 
 export function deleteK2(staffs, service: CircleTurnService) {
   staffs = service.updateTurn(staffs[2].id, 'delete');
