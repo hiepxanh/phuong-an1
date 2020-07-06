@@ -37,7 +37,7 @@ export function s2k3(staffs, service: CircleTurnService) {
   return staffs
 }
 
-// USE CAKE 1
+// USE CASE 1
 export function s2k4(staffs, service: CircleTurnService) {
   staffs = service.updateTurn(staffs[1].id, 'add', {
     id: 4,
@@ -47,7 +47,7 @@ export function s2k4(staffs, service: CircleTurnService) {
   return staffs
 }
 
-// USE CAKE 2.1
+// USE CASE 2.1
 export function s2k5a(staffs, service: CircleTurnService) {
   staffs = service.updateTurn(staffs[1].id, 'add', {
     id: 5,
@@ -66,7 +66,7 @@ export function s2k6a(staffs, service: CircleTurnService) {
   return staffs
 }
 
-// USE CAKE 2.2
+// USE CASE 2.2
 export function s2k5b(staffs, service: CircleTurnService) {
   staffs = service.updateTurn(staffs[3].id, 'add', {
     id: 7,
@@ -86,11 +86,36 @@ export function s2k6b(staffs, service: CircleTurnService) {
   return staffs
 }
 
-// USE CAKE 3.1
-export function xoaK2CuaA(staffs, service: CircleTurnService) {
+// USE CASE 3.1
+export function deleteK2CuaA(staffs, service: CircleTurnService) {
   staffs = service.updateTurn(staffs[1].id, 'delete', {
-    id: 9,
+    id: 2,
     price: 15
+  });
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+
+// USE CASE 3.2
+export function deleteK1CuaA(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[1].id, 'delete', {
+    id: 1,
+    price: 7
+  });
+  staffs = service.caculatePrioritize(staffs);
+  return staffs
+}
+
+// USE CASE 4
+export function ClockOutStaffBpa2(staffId, service) {
+  service.checkinStaff(staffId);
+   return service.caculatePrioritize(service.staffArrays);
+ }
+
+ export function s2k7(staffs, service: CircleTurnService) {
+  staffs = service.updateTurn(staffs[3].id, 'add', {
+    id: 9,
+    price: 10
   });
   staffs = service.caculatePrioritize(staffs);
   return staffs
