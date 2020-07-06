@@ -22,9 +22,9 @@ describe('CircleTurnService', () => {
   });
 
   it('3 staff should check in', () => {
-    expect(service.staffs[1].checkIn).toBeTrue();
-    expect(service.staffs[2].checkIn).toBeTrue();
-    expect(service.staffs[3].checkIn).toBeTrue();
+    expect(service.staffs[1].isCheckIn).toBeTrue();
+    expect(service.staffs[2].isCheckIn).toBeTrue();
+    expect(service.staffs[3].isCheckIn).toBeTrue();
   });
 
   it('add turn 1 to staff 1', () => {
@@ -243,7 +243,7 @@ describe('CircleTurnService', () => {
     expect(staffs[1].prioritize).toBe(3);
     expect(staffs[2].prioritize).toBe(1);
     expect(staffs[3].prioritize).toBe(2);
-  }); 
+  });
 
   it('ClockOutStaffB', () => {
     // console.log(staffs);
@@ -267,7 +267,7 @@ describe('CircleTurnService', () => {
 
     expect(staffs[1].prioritize).toBe(2);
     expect(staffs[3].prioritize).toBe(1);
-  }); 
+  });
   it('K9', () => {
     // console.log(staffs);
     staffs = k1(staffs, service);
