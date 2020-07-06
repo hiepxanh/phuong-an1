@@ -106,8 +106,8 @@ describe('ThresholdNonCumulativeService', () => {
 
   // USE CASE 3.1
   it('DeleteK2A', () => {
-    staffs = s2k1(staffs, service);   
-    staffs = s2k2(staffs, service);   
+    staffs = s2k1(staffs, service);
+    staffs = s2k2(staffs, service);
     staffs = s2k3(staffs, service);
     staffs = s2k4(staffs, service);
     staffs = s2k5a(staffs, service);
@@ -119,8 +119,8 @@ describe('ThresholdNonCumulativeService', () => {
     expect(staffs[3].prioritize).toBe(3);
   })
   it('DeleteK1A', () => {
-    staffs = s2k1(staffs, service);   
-    staffs = s2k2(staffs, service);   
+    staffs = s2k1(staffs, service);
+    staffs = s2k2(staffs, service);
     staffs = s2k3(staffs, service);
     staffs = s2k4(staffs, service);
     staffs = s2k5a(staffs, service);
@@ -133,10 +133,10 @@ describe('ThresholdNonCumulativeService', () => {
   })
   // USE CASE 4
   it('BClockOutpa2', () => {
-    staffs = s2k1(staffs, service);   
-    staffs = s2k2(staffs, service);   
+    staffs = s2k1(staffs, service);
+    staffs = s2k2(staffs, service);
     staffs = s2k3(staffs, service);
-    staffs = s2k4(staffs, service);  
+    staffs = s2k4(staffs, service);
     staffs = s2k5a(staffs, service);
     staffs = s2k6a(staffs, service);
 
@@ -145,13 +145,13 @@ describe('ThresholdNonCumulativeService', () => {
 
     expect(staffs[1].prioritize).toBe(2);
     expect(staffs[3].prioritize).toBe(1);
-    
+
   })
   it('s2k7', () => {
-    staffs = s2k1(staffs, service);   
-    staffs = s2k2(staffs, service);   
+    staffs = s2k1(staffs, service);
+    staffs = s2k2(staffs, service);
     staffs = s2k3(staffs, service);
-    staffs = s2k4(staffs, service);  
+    staffs = s2k4(staffs, service);
     staffs = s2k5a(staffs, service);
     staffs = s2k6a(staffs, service);
     staffs = s2k7(staffs, service);
@@ -159,7 +159,7 @@ describe('ThresholdNonCumulativeService', () => {
     staffs = ClockOutStaffBpa2(staffs[2].id, service);
     expect(staffs[1].prioritize).toBe(1);
     expect(staffs[3].prioritize).toBe(2);
-    
+
   })
 
 
