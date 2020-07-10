@@ -26,7 +26,7 @@
     <ng-container *ngIf="staff.value as nhanVien">
       <div class="col-sm-1">{{nhanVien.timecheckIn === 0 ? '-' : nhanVien.prioritize}}</div>
       <div class="col-sm-3">{{nhanVien.name}}</div>
-      <div class="col-sm-2" (click)="checkInNhanVien(nhanVien.id)">{{nhanVien.checkIn}}</div>
+      <div class="col-sm-2" (click)="checkInNhanVien(nhanVien.id)">{{nhanVien.isCheckIn}}</div>
       <div class="col-sm-2">{{nhanVien.turn}}</div>
       <div class="col-sm-1">
         <div class="row">
