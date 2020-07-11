@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class CircleTurnService {
   staffs = {
-  1: { id: 1, name: 'Nguyen A', isIn: false, turn: 0, clockIn: 0, prioritize: 0 },
-  2: { id: 2, name: 'Nguyen B', isIn: false, turn: 0, clockIn: 0, prioritize: 0 },
-  3: { id: 3, name: 'Nguyen C', isIn: false, turn: 0, clockIn: 0, prioritize: 0 }
+  1: { id: 1, staffName: 'Nguyen A', isIn: false, turn: 0, clockIn: 0, prioritize: 0 },
+  2: { id: 2, staffName: 'Nguyen B', isIn: false, turn: 0, clockIn: 0, prioritize: 0 },
+  3: { id: 3, staffName: 'Nguyen C', isIn: false, turn: 0, clockIn: 0, prioritize: 0 }
   };
   staffChose;
   customers = [];
@@ -106,7 +106,7 @@ export class CircleTurnService {
     if (staff.isIn) {
       if (type === 'add') {
         this.idCustomer += 1;
-        this.customers.push({ id: this.idCustomer, name: 'Khach Hang ' + this.idCustomer, staff: staff.name });
+        this.customers.push({ id: this.idCustomer, staffName: 'Khach Hang ' + this.idCustomer, staff: staff.staffName });
       }
     }
   }
@@ -114,7 +114,7 @@ export class CircleTurnService {
   add(id) {
     this.staffs[id] = {
       id,
-      name: 'Nhan Vien' + id,
+      staffName: 'Nhan Vien' + id,
       checkIn: false,
       turn: 0,
       clockIn: 0,
