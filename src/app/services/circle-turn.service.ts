@@ -22,26 +22,31 @@ export class CircleTurnService {
   caculatePrioritize(staffs: any) {
     const objectByTurn = Object.values(staffs ?? {}).groupBy('turn');
     const objectByTurnSorted = objectByTurn.sortValueAsArray('desc', 'timecheckIn');
-    const turns = Object.keys(objectByTurnSorted);
-    const flatStaff1 = turns.sortByKey('desc', 'timecheckIn');
-    const flatStaff2 = flatStaff1.map(key => objectByTurnSorted[key]);
-    const flatStaff3 = flatStaff2.flat();
-    const flatStafff4 = this.prioritizeIfCheckin(flatStaff3);
-    const flatArrayToObject = flatStafff4.arrayToObject('id');
+    const turnKeys = Object.keys(objectByTurnSorted);
+    const turnKeysDesc = turnKeys.sortByKey('asc');
+    const staffArrays = turnKeysDesc.map(turnNumber => objectByTurnSorted[turnNumber]);
+    let startPrioritize = 1;
+    const flatStaff3 = staffArrays.map((staffsByTurn) => {
+      const { staffsResult, currentPrioritize } = this.prioritizeIfCheckin(staffsByTurn, startPrioritize);
+      startPrioritize = currentPrioritize;
+      return staffsResult;
+    }).flat();
+    const flatStaff4 = flatStaff3.sortByKey('asc','prioritize');
+    const flatArrayToObject = flatStaff4.arrayToObject('id');
     return flatArrayToObject
   }
 
-  prioritizeIfCheckin(staffs) {
-    let currentPrioritize = 1;
-    return staffs.map((staff, i) => {
+  prioritizeIfCheckin(staffs, currentPrioritize) {
+    staffs = staffs.map((staff, i) => {
       if (staff.isCheckIn) {
         staff = { ...staff, prioritize: currentPrioritize };
         currentPrioritize++
       } else {
         staff = { ...staff, prioritize: 0 };
       }
-      return staff
+      return staff;
     });
+    return { staffsResult: staffs, currentPrioritize }
   }
 
   addPrioritize(staffCheckIn) {
