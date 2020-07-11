@@ -4,7 +4,7 @@ export function checkinAll(staffs, service: CircleTurnService) {
   service.checkinStaff(staffs[1].id);
   service.checkinStaff(staffs[2].id);
   service.checkinStaff(staffs[3].id);
-  return service.caculatePrioritize(service.staffArrays);
+  return service.caculatePrioritize(service.staffs);
 }
 
 export function k1(staffs, service: CircleTurnService) {

@@ -21,7 +21,7 @@ export class CircleTurnService {
 
   caculatePrioritize(staffs: any) {
     const objectByTurn = Object.values(staffs ?? {}).groupBy('turn');
-    const objectByTurnSorted = objectByTurn.sortValueAsArray('desc', 'clockIn');
+    const objectByTurnSorted = objectByTurn.sortValueAsArray('asc', 'clockIn');
     const turnKeys = Object.keys(objectByTurnSorted);
     const turnKeysDesc = turnKeys.sortByKey('asc');
     const staffArrays = turnKeysDesc.map(turnNumber => objectByTurnSorted[turnNumber]);
@@ -37,6 +37,8 @@ export class CircleTurnService {
   }
 
   prioritizeIfCheckin(staffs, currentPrioritize) {
+    // order by who came first
+    staffs = staffs.sortByKey('asc','clockIn');
     staffs = staffs.map((staff, i) => {
       if (staff.isIn) {
         staff = { ...staff, prioritize: currentPrioritize };
@@ -59,8 +61,8 @@ export class CircleTurnService {
   }
 
   updatePriority() {
-    const staffCheckin = (this.staffs as object).filterProperty('id', entity => entity.clockIn > 0);
-    this.addPrioritize(staffCheckin);
+    this.staffs = this.caculatePrioritize(this.staffs) as any;
+    console.log('this.staffs', this.staffs);
     return {
       staffs: this.staffs,
       staffChose: this.staffChose
@@ -86,7 +88,7 @@ export class CircleTurnService {
       staff.clockIn = 0;
       staff.prioritize = 0;
     }
-    this.update(id, staff);
+    return this.update(id, staff);
   }
 
   updateTurn(id, type: 'add' | 'delete', service?: any) {

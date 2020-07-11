@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   }
 
   checkInNhanVien(id) {
-    this.method.checkinStaff(id);
+    this.method.staffs = this.method.checkinStaff(id);
     this.updateView();
   }
 
@@ -53,18 +53,18 @@ export class AppComponent implements OnInit {
     }
     switch (this.methodMode) {
       case 'circle':
-        this.method.updateTurn(id, type);
+        this.method.staffs = this.method.updateTurn(id, type);
         break;
       case 'threshold-non-cumulative':
         if (type === 'add') {
           const paidMoney = prompt('How much this customer will pay for this turn?:', '10');
-          this.method.updateTurn(id, type, {
+          this.method.staffs = this.method.updateTurn(id, type, {
             id: ++this.idService,
             price: +paidMoney
           });
         } else {
           const serviceId = prompt('enter service id want to delete', '10');
-          this.method.updateTurn(id, type, {
+          this.method.staffs = this.method.updateTurn(id, type, {
             id: serviceId,
             price: 0
           });
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
 
   themNhanVien() {
     this.idStaff += 1;
-    this.method.add(this.idStaff);
+    this.method.staffs = this.method.add(this.idStaff);
     this.updateView();
   }
 
