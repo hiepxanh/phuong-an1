@@ -24,9 +24,9 @@
   </div>
   <div *ngFor="let staff of staffs | keyvalue" class="row">
     <ng-container *ngIf="staff.value as nhanVien">
-      <div class="col-sm-1">{{nhanVien.timecheckIn === 0 ? '-' : nhanVien.prioritize}}</div>
+      <div class="col-sm-1">{{nhanVien.clockIn === 0 ? '-' : nhanVien.prioritize}}</div>
       <div class="col-sm-3">{{nhanVien.name}}</div>
-      <div class="col-sm-2" (click)="checkInNhanVien(nhanVien.id)">{{nhanVien.isCheckIn}}</div>
+      <div class="col-sm-2" (click)="checkInNhanVien(nhanVien.id)">{{nhanVien.isIn}}</div>
       <div class="col-sm-2">{{nhanVien.turn}}</div>
       <div class="col-sm-1">
         <div class="row">
@@ -34,7 +34,7 @@
           <button type="button" class="btn btn-link" (click)="changeTurn(nhanVien.id, 'delete')">Delete -</button>
         </div>
       </div>
-      <div class="col-sm-3">{{nhanVien.timecheckIn !== 0 ? (nhanVien.timecheckIn | date: 'medium') : 0}}</div>
+      <div class="col-sm-3">{{nhanVien.clockIn !== 0 ? (nhanVien.clockIn | date: 'medium') : 0}}</div>
     </ng-container>
   </div>
   <h5 *ngIf="staffChose">Gợi ý của chúng tôi là: {{staffChose.name}}</h5>

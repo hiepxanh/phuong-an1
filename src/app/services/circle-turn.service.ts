@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class CircleTurnService {
   staffs = {
-  1: { id: 1, name: 'Nguyen A', isCheckIn: false, turn: 0, timecheckIn: 0, prioritize: 0 },
-  2: { id: 2, name: 'Nguyen B', isCheckIn: false, turn: 0, timecheckIn: 0, prioritize: 0 },
-  3: { id: 3, name: 'Nguyen C', isCheckIn: false, turn: 0, timecheckIn: 0, prioritize: 0 }
+  1: { id: 1, name: 'Nguyen A', isIn: false, turn: 0, clockIn: 0, prioritize: 0 },
+  2: { id: 2, name: 'Nguyen B', isIn: false, turn: 0, clockIn: 0, prioritize: 0 },
+  3: { id: 3, name: 'Nguyen C', isIn: false, turn: 0, clockIn: 0, prioritize: 0 }
   };
   staffChose;
   customers = [];
@@ -21,7 +21,7 @@ export class CircleTurnService {
 
   caculatePrioritize(staffs: any) {
     const objectByTurn = Object.values(staffs ?? {}).groupBy('turn');
-    const objectByTurnSorted = objectByTurn.sortValueAsArray('desc', 'timecheckIn');
+    const objectByTurnSorted = objectByTurn.sortValueAsArray('desc', 'clockIn');
     const turnKeys = Object.keys(objectByTurnSorted);
     const turnKeysDesc = turnKeys.sortByKey('asc');
     const staffArrays = turnKeysDesc.map(turnNumber => objectByTurnSorted[turnNumber]);
@@ -38,7 +38,7 @@ export class CircleTurnService {
 
   prioritizeIfCheckin(staffs, currentPrioritize) {
     staffs = staffs.map((staff, i) => {
-      if (staff.isCheckIn) {
+      if (staff.isIn) {
         staff = { ...staff, prioritize: currentPrioritize };
         currentPrioritize++
       } else {
@@ -59,7 +59,7 @@ export class CircleTurnService {
   }
 
   updatePriority() {
-    const staffCheckin = (this.staffs as object).filterProperty('id', entity => entity.timecheckIn > 0);
+    const staffCheckin = (this.staffs as object).filterProperty('id', entity => entity.clockIn > 0);
     this.addPrioritize(staffCheckin);
     return {
       staffs: this.staffs,
@@ -78,12 +78,12 @@ export class CircleTurnService {
 
   checkinStaff(id) {
     const staff = this.getEntity(id);
-    if (staff.isCheckIn === false) {
-      staff.isCheckIn = true;
-      staff.timecheckIn = new Date();
+    if (staff.isIn === false) {
+      staff.isIn = true;
+      staff.clockIn = new Date();
     } else {
-      staff.isCheckIn = false;
-      staff.timecheckIn = 0;
+      staff.isIn = false;
+      staff.clockIn = 0;
       staff.prioritize = 0;
     }
     this.update(id, staff);
@@ -91,7 +91,7 @@ export class CircleTurnService {
 
   updateTurn(id, type: 'add' | 'delete', service?: any) {
     let staff = this.getEntity(id);
-    if (staff.isCheckIn) {
+    if (staff.isIn) {
       if (type === 'add') {
         staff = { ...staff, turn: staff.turn + 1 };
       } else if (type === 'delete') {
@@ -103,7 +103,7 @@ export class CircleTurnService {
 
   updateHistory(id, type) {
     const staff = this.getEntity(id);
-    if (staff.isCheckIn) {
+    if (staff.isIn) {
       if (type === 'add') {
         this.idCustomer += 1;
         this.customers.push({ id: this.idCustomer, name: 'Khach Hang ' + this.idCustomer, staff: staff.name });
@@ -117,7 +117,7 @@ export class CircleTurnService {
       name: 'Nhan Vien' + id,
       checkIn: false,
       turn: 0,
-      timecheckIn: 0,
+      clockIn: 0,
       prioritize: 0
     }
   }

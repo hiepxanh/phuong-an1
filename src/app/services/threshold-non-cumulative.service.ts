@@ -6,9 +6,9 @@ import { CircleTurnService } from './circle-turn.service';
 })
 export class ThresholdNonCumulativeService extends CircleTurnService {
   staffs = {
-    1: { id: 1, name: 'Nguyen A', isCheckIn: false, turn: 0, timecheckIn: 0, prioritize: 0,turnServices: {} },
-    2: { id: 2, name: 'Nguyen B', isCheckIn: false, turn: 0, timecheckIn: 0, prioritize: 0,turnServices: {} },
-    3: { id: 3, name: 'Nguyen C', isCheckIn: false, turn: 0, timecheckIn: 0, prioritize: 0,turnServices: {} }
+    1: { id: 1, name: 'Nguyen A', isIn: false, turn: 0, clockIn: 0, prioritize: 0,turnServices: {} },
+    2: { id: 2, name: 'Nguyen B', isIn: false, turn: 0, clockIn: 0, prioritize: 0,turnServices: {} },
+    3: { id: 3, name: 'Nguyen C', isIn: false, turn: 0, clockIn: 0, prioritize: 0,turnServices: {} }
   };
   threshold = 10;
 
@@ -18,7 +18,7 @@ export class ThresholdNonCumulativeService extends CircleTurnService {
       name: 'Nhan Vien' + id,
       checkIn: false,
       turn: 0,
-      timecheckIn: 0,
+      clockIn: 0,
       prioritize: 0,
       turnServices: {},
     }
@@ -26,7 +26,7 @@ export class ThresholdNonCumulativeService extends CircleTurnService {
 
   updateTurn(id, type: 'add' | 'delete', service?: any) {
     const staff = this.getEntity(id);
-    if (staff.isCheckIn) {
+    if (staff.isIn) {
       const newTurnServices = this.calculateTurnIncrease(staff, type, service);
       const totalTurns = this.calculateTotalTurnInHistory(newTurnServices);
       staff.turn = totalTurns.length;

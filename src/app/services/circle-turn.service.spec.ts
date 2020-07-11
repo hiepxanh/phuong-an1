@@ -22,9 +22,9 @@ describe('CircleTurnService', () => {
   });
 
   it('3 staff should check in', () => {
-    expect(service.staffs[1].isCheckIn).toBeTrue();
-    expect(service.staffs[2].isCheckIn).toBeTrue();
-    expect(service.staffs[3].isCheckIn).toBeTrue();
+    expect(service.staffs[1].isIn).toBeTrue();
+    expect(service.staffs[2].isIn).toBeTrue();
+    expect(service.staffs[3].isIn).toBeTrue();
   });
 
   it('add turn 1 to staff 1', () => {

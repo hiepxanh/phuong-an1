@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
   }
 
   isNoOneCheckin() {
-    const result = this.staffs.compareValueByFn(value => !!value.timecheckIn);
+    const result = this.staffs.compareValueByFn(value => !!value.clockIn);
     return Object.values(result ?? {}).filter(item => item === true).length === 0;
   }
 
