@@ -32,6 +32,7 @@ export class CircleTurnService {
       return staffsResult;
     }).flat();
     const flatStaff4 = flatStaff3.sortByKey('asc','prioritize');
+    this.staffChose = flatStaff4[0];
     const flatArrayToObject = flatStaff4.arrayToObject('id');
     return flatArrayToObject
   }
