@@ -10,7 +10,7 @@ export class CircleTurnService {
   3: { id: 3, staffName: 'Nguyen C', isIn: false, turn: 0, clockIn: 0, prioritize: 0 }
   };
   staffChose;
-  customers = [];
+  customers: any[] = [];
   idCustomer = 0;
 
   get staffArrays() {
