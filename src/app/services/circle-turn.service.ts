@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class CircleTurnService {
   staffs = {
-  1: { id: 1, staffName: 'Nguyen A', isIn: false, turn: 0, clockIn: 0, prioritize: 0 },
-  2: { id: 2, staffName: 'Nguyen B', isIn: false, turn: 0, clockIn: 0, prioritize: 0 },
-  3: { id: 3, staffName: 'Nguyen C', isIn: false, turn: 0, clockIn: 0, prioritize: 0 }
+    1: { id: 1, staffName: 'Nguyen A', isIn: false, isOut: false, turn: 0, clockIn: 0, prioritize: 0 },
+    2: { id: 2, staffName: 'Nguyen B', isIn: false, isOut: false, turn: 0, clockIn: 0, prioritize: 0 },
+    3: { id: 3, staffName: 'Nguyen C', isIn: false, isOut: false, turn: 0, clockIn: 0, prioritize: 0 }
   };
   staffChose;
   customers: any[] = [];
@@ -41,7 +41,7 @@ export class CircleTurnService {
     // order by who came first
     staffs = staffs.sortByKey('asc','clockIn');
     staffs = staffs.map((staff, i) => {
-      if (staff.isIn) {
+      if (staff.isIn && staff.isOut !== true) {
         staff = { ...staff, prioritize: currentPrioritize };
         currentPrioritize++
       } else {
@@ -61,13 +61,13 @@ export class CircleTurnService {
     this.staffChose = values[0];
   }
 
-  updatePriority() {
-    this.staffs = this.caculatePrioritize(this.staffs) as any;
+  updatePriority(staffAttendanceData = this.staffs) {
+    this.staffs = this.caculatePrioritize(staffAttendanceData) as any;
     console.log('this.staffs', this.staffs);
     return {
       staffs: this.staffs,
       staffChose: this.staffChose
-    }
+    };
   }
 
   update(id, staff) {
@@ -92,7 +92,7 @@ export class CircleTurnService {
     return this.update(id, staff);
   }
 
-  updateTurn(id, type: 'add' | 'delete', service?: any) {
+  updateTurn(id, type: 'add' | 'delete' | 'keep', service?: any) {
     let staff = this.getEntity(id);
     if (staff.isIn) {
       if (type === 'add') {

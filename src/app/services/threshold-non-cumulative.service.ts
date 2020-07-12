@@ -6,9 +6,9 @@ import { CircleTurnService } from './circle-turn.service';
 })
 export class ThresholdNonCumulativeService extends CircleTurnService {
   staffs = {
-    1: { id: 1, staffName: 'Nguyen A', isIn: false, turn: 0, clockIn: 0, prioritize: 0,turnServices: {} },
-    2: { id: 2, staffName: 'Nguyen B', isIn: false, turn: 0, clockIn: 0, prioritize: 0,turnServices: {} },
-    3: { id: 3, staffName: 'Nguyen C', isIn: false, turn: 0, clockIn: 0, prioritize: 0,turnServices: {} }
+    1: { id: 1, staffName: 'Nguyen A', isIn: false, isOut: false, turn: 0, clockIn: 0, prioritize: 0, turnServices: {} },
+    2: { id: 2, staffName: 'Nguyen B', isIn: false, isOut: false, turn: 0, clockIn: 0, prioritize: 0, turnServices: {} },
+    3: { id: 3, staffName: 'Nguyen C', isIn: false, isOut: false, turn: 0, clockIn: 0, prioritize: 0, turnServices: {} }
   };
   threshold = 10;
 

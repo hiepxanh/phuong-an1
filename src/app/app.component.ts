@@ -51,6 +51,9 @@ export class AppComponent implements OnInit {
     if (nooneCheckin) {
       return alert('Vui lòng checkin ít nhất 1 staff');
     }
+    if (!this.method.getEntity(id)) {
+      return;
+    }
     switch (this.methodMode) {
       case 'circle':
         this.method.staffs = this.method.updateTurn(id, type);
