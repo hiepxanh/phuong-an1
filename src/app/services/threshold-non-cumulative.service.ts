@@ -26,7 +26,7 @@ export class ThresholdNonCumulativeService extends CircleTurnService {
 
   updateTurn(id, type: 'add' | 'delete', service?: any) {
     const staff = this.getEntity(id);
-    if (staff.isIn) {
+    if (staff.isIn && staff.isOut !== true) {
       const newTurnServices = this.calculateTurnIncrease(staff, type, service);
       const totalTurns = this.calculateTotalTurnInHistory(newTurnServices);
       staff.turn = totalTurns.length;
@@ -36,18 +36,18 @@ export class ThresholdNonCumulativeService extends CircleTurnService {
   }
 
   calculateTurnIncrease(staff, type, service) {
-    let turnServices = staff.turnServices;
+    let turnServices = { ...staff.turnServices };
     if (type === 'add') {
       turnServices[service.id] = {
         id: service.id,
         price: service.price,
         turn: staff.turn
-      }
+      };
     } else if (type === 'delete') {
       const { [service.id]: dumb, ...pureTurnServices } = turnServices;
       turnServices = pureTurnServices;
     }
-    return turnServices
+    return turnServices;
   }
 
 
