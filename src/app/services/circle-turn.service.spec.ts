@@ -35,8 +35,11 @@ describe('CircleTurnService', () => {
 
   it('K0', () => {
     // console.log(staffs);
+    // mong muốn: staff 1 phải có thuộc tính prioritize (thứ tự) bằng 1
     expect(staffs[1].prioritize).toBe(1);
+    // mong muốn: staff 2 phải có thuộc tính prioritize (thứ tự) bằng 2
     expect(staffs[2].prioritize).toBe(2);
+    // mong muốn: staff 3 phải có thuộc tính prioritize (thứ tự) bằng 3
     expect(staffs[3].prioritize).toBe(3);
   });
 
